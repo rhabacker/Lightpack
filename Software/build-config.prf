@@ -20,6 +20,16 @@ win32: {
     } else {
         DEBUG_EXT =
     }
+
+    # install path for targets
+    contains(TEMPLATE, app) {
+        target.path = $$[QT_INSTALL_BINS]
+        INSTALLS += target
+    }
+    contains(TEMPLATE, lib) {
+        dlltarget.path = $$[QT_INSTALL_BINS]
+        INSTALLS += dlltarget
+    }
 }
 
 macx {
