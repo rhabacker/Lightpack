@@ -3,9 +3,13 @@
 #include "hooksutils.h"
 #include "../common/msvcstub.h"
 #include <initguid.h>
-#include "D3D11.h"
-#include "DXGI.h"
-#include "D3D10.h"
+#include <d3d11.h>
+#include <dxgi.h>
+#include <d3d10.h>
+
+#ifdef __MINGW32__
+#define D3D10CalcSubresource D3D11CalcSubresource
+#endif
 
 #include "ProxyFuncVFTable.hpp"
 #include "IPCContext.hpp"

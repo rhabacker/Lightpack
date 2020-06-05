@@ -4,6 +4,8 @@
 #include "GAPIProxyFrameGrabber.hpp"
 #include "LoggableTrait.hpp"
 
+#include <d2d1.h>
+
 class IPCContext;
 class ProxyFuncVFTable;
 class Logger;

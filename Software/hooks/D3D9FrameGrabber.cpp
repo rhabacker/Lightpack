@@ -529,7 +529,7 @@ HRESULT WINAPI D3D9Reset(IDirect3DDevice9* pDev, D3DPRESENT_PARAMETERS* pPresent
 		// find the VFT in this process and use it in the future
 		uintptr_t * pvtbl = *((uintptr_t**)(pDev));
 		uintptr_t* presentFuncPtr = &pvtbl[D3D9_RESET_FUNC_ORD];
-		if (!d3d9FrameGrabber->m_d3d9ResetProxyFunc->switchToVFTHook((void**)presentFuncPtr, D3D9Reset)) {
+		if (!d3d9FrameGrabber->m_d3d9ResetProxyFunc->switchToVFTHook((void**)presentFuncPtr, (D3DPRESENT_PARAMETERS*)D3D9Reset)) {
 			logger->reportLogError(L"d3d9 failed to switch from jmp to vft proxy");
 		}
 	}

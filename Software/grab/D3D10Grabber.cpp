@@ -46,8 +46,8 @@
 #include "../libraryinjector/ILibraryInjector.h"
 
 #include "../common/msvcstub.h"
-#include <D3D10_1.h>
-#include <D3D10.h>
+#include <d3d10_1.h>
+#include <d3d10.h>
 
 #define SIZEOF_ARRAY(a) (sizeof(a)/sizeof(a[0]))
 
