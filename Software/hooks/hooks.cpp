@@ -2,6 +2,8 @@
 #include"stdio.h"
 #include"shlwapi.h"
 
+#include <d2d1.h>
+
 #define UINT8 unsigned char
 #include "hooksutils.h"
 #include "Logger.hpp"

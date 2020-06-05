@@ -256,7 +256,13 @@ macx{
 # Generate .qm language files
 QMAKE_MAC_SDK = macosx
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
-system($$[QT_INSTALL_BINS]/lrelease src.pro)
+
+win32 {
+    !host_build: \
+        system($$[QT_HOST_BINS]/lrelease src.pro)
+    else: \
+        system($$[QT_INSTALL_BINS]/lrelease src.pro)
+}
 
 INCLUDEPATH += . \
                .. \

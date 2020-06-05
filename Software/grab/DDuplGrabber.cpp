@@ -31,6 +31,11 @@
 #include <comdef.h>
 #include <dxgi1_2.h>
 #include <d3d11.h>
+
+#ifndef DXGI_ERROR_MODE_CHANGE_IN_PROGRESS
+#define DXGI_ERROR_MODE_CHANGE_IN_PROGRESS 0x887A0025
+#endif
+
 _COM_SMARTPTR_TYPEDEF(IDXGIFactory1, __uuidof(IDXGIFactory1));
 _COM_SMARTPTR_TYPEDEF(IDXGIOutput, __uuidof(IDXGIOutput));
 _COM_SMARTPTR_TYPEDEF(IDXGIOutput1, __uuidof(IDXGIOutput1));
@@ -128,6 +133,25 @@ DDuplGrabber::~DDuplGrabber()
 		FreeLibrary(m_d3d11Dll);
 }
 
+DWORD WINAPI DDuplGrabberThreadProc(LPVOID arg) {
+        DDuplGrabber* _this = (DDuplGrabber*)arg;
+        DWORD errorcode;
+
+        while (true) {
+                if (WAIT_OBJECT_0 == (errorcode = WaitForSingleObject(_this->m_threadEvent, INFINITE))) {
+                        switch (_this->m_threadCommand) {
+                        case Exit:
+                                SetEvent(_this->m_threadReturnEvent);
+                                return 0;
+                        case Reallocate:
+                                _this->m_threadReallocateResult = _this->_reallocate(_this->m_threadReallocateArg);
+                                break;
+                        }
+                        SetEvent(_this->m_threadReturnEvent);
+                }
+        }
+}
+
 bool DDuplGrabber::init()
 {
 	m_state = Unavailable;
@@ -186,25 +210,6 @@ bool DDuplGrabber::recreateAdapters() {
 	}
 
 	return true;
-}
-
-DWORD WINAPI DDuplGrabberThreadProc(LPVOID arg) {
-	DDuplGrabber* _this = (DDuplGrabber*)arg;
-	DWORD errorcode;
-
-	while (true) {
-		if (WAIT_OBJECT_0 == (errorcode = WaitForSingleObject(_this->m_threadEvent, INFINITE))) {
-			switch (_this->m_threadCommand) {
-			case Exit:
-				SetEvent(_this->m_threadReturnEvent);
-				return 0;
-			case Reallocate:
-				_this->m_threadReallocateResult = _this->_reallocate(_this->m_threadReallocateArg);
-				break;
-			}
-			SetEvent(_this->m_threadReturnEvent);
-		}
-	}
 }
 
 bool DDuplGrabber::runThreadCommand(DWORD timeout) {

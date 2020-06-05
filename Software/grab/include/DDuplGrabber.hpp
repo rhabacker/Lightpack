@@ -37,9 +37,15 @@
 
 #include <windows.h>
 
+#ifdef __MINGW32__
+#include <comdef.h>
+#include <dxgi1_2.h>
+#include <d3d11.h>
+#else
 // Forward declaration of IDXGIAdapter1 to avoid including dxgi here
 #include <comdef.h>
 MIDL_INTERFACE("29038f61-3839-4626-91fd-086879011a05") IDXGIAdapter1;
+#endif
 _COM_SMARTPTR_TYPEDEF(IDXGIAdapter1, __uuidof(IDXGIAdapter1));
 
 enum DDuplGrabberState

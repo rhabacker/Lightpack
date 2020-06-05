@@ -32,9 +32,9 @@
 #include "../src/debug.h"
 
 #include "msvcstub.h"
-#include <DXGI.h>
-#include <D3D10_1.h>
-#include <D3D10.h>
+#include <dxgi.h>
+#include <d3d10_1.h>
+#include <d3d10.h>
 #include <d3d9.h>
 
 #define DXGI_PRESENT_FUNC_ORD 8
