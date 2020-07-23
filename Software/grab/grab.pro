@@ -143,5 +143,11 @@ unix:!macx {
     QMAKE_CXXFLAGS += -mavx2
 }
 
+
+win32:!msvc {
+    QMAKE_CFLAGS += -mavx2
+    QMAKE_CXXFLAGS +=-mavx2
+}
+
 OTHER_FILES += \
     configure-grabbers.prf
