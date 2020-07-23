@@ -5,7 +5,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include "WindowsSession.hpp"
-#include <WtsApi32.h>
+#include <wtsapi32.h>
 
 #include "debug.h"
 #include "LightpackApplication.hpp"
