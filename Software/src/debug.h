@@ -74,3 +74,11 @@ namespace Debug
 #else
 #	define API_DEBUG_OUT	if(0) qDebug()
 #endif
+
+#ifndef NO_QT
+#include <QtCore/qglobal.h>
+#if QT_VERSION < QT_VERSION_CHECK(5,10,0)
+#undef Q_FUNC_INFO
+#define Q_FUNC_INFO ""
+#endif
+#endif
